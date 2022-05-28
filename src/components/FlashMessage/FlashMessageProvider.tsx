@@ -19,6 +19,30 @@ export const FlashMessageProvider: FC<
       warning: null,
       info: null,
     }}
+    // classes={{
+    //   variantSuccess: { backgroundColor: "#3AB795" },
+    //   variantError: { backgroundColor: "#FF595E" },
+    //   // variantWarning: classes.warning,
+    //   // variantInfo: classes.info,
+    // }}
+    // content={(key, message) => (
+    //   <SnackbarContent
+    //     key={key}
+    //     sx={{
+    //       backgroundColor:
+    //         props.variant === "success"
+    //           ? "#3AB795"
+    //           : props.variant === "error"
+    //           ? "#FF595E"
+    //           : props.variant === "info"
+    //           ? "#0974E8"
+    //           : props.variant === "warning"
+    //           ? "#FFCA3A"
+    //           : "#000000",
+    //     }}
+    //     message={<Typography color={"white"}>{message}</Typography>}
+    //   />
+    // )}
     {...props}
   >
     {children}
@@ -56,7 +80,6 @@ export const useFlashMessage = () => {
                 return (
                   <StyledIconButton
                     $variant={variant}
-                    data-testid="FlashMessageCloseIconButton"
                     onClick={() => closeFlashMessage(key)}
                   >
                     <CloseIcon />
@@ -98,8 +121,4 @@ const StyledIconButton = styled(IconButton)<{ $variant?: VariantType }>`
   }}
 `;
 
-const StyledSnackbarProvider = styled(SnackbarProvider)`
-  & .MuiSnackbarContent-action {
-    padding-left: 10px;
-  }
-`;
+const StyledSnackbarProvider = styled(SnackbarProvider)``;
