@@ -3,6 +3,9 @@ import { IconButton } from "@mui/material";
 import { SnackbarProvider, useSnackbar } from "notistack";
 import { ComponentProps, FC, useCallback } from "react";
 import CloseIcon from "@mui/icons-material/Close";
+import CheckIcon from "@mui/icons-material/Check";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 
 export const FlashMessageProvider: FC<
   ComponentProps<typeof SnackbarProvider>
@@ -11,6 +14,10 @@ export const FlashMessageProvider: FC<
     anchorOrigin={{ vertical: "top", horizontal: "center" }}
     autoHideDuration={3000}
     maxSnack={5}
+    iconVariant={{
+      success: <CheckCircleOutlineIcon />,
+      error: <ErrorOutlineIcon />,
+    }}
     {...props}
   >
     {children}
