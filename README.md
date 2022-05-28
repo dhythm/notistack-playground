@@ -1,6 +1,6 @@
 # notistack-playground
 
-## Installation
+## Setting up a plane React
 
 ```sh
 npm init -y
@@ -23,4 +23,17 @@ npx eslint --init
 touch .prettierrc
 
 npm install --save-dev husky lint-staged concurrently
+```
+
+## Install Storybook
+
+```sh
+npx storybook init
+```
+
+## Install Material UI
+
+```sh
+npm install @mui/material @emotion/react @emotion/styled
+npm install @mui/icons-material
 ```
