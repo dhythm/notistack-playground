@@ -1,11 +1,10 @@
 import styled from "@emotion/styled";
-import { IconButton } from "@mui/material";
-import { SnackbarProvider, useSnackbar } from "notistack";
-import { ComponentProps, FC, useCallback } from "react";
-import CloseIcon from "@mui/icons-material/Close";
-import CheckIcon from "@mui/icons-material/Check";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import CloseIcon from "@mui/icons-material/Close";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
+import { css, IconButton } from "@mui/material";
+import { SnackbarProvider, useSnackbar, VariantType } from "notistack";
+import { ComponentProps, FC, useCallback } from "react";
 
 export const FlashMessageProvider: FC<
   ComponentProps<typeof SnackbarProvider>
@@ -15,8 +14,10 @@ export const FlashMessageProvider: FC<
     autoHideDuration={3000}
     maxSnack={5}
     iconVariant={{
-      success: <CheckCircleOutlineIcon />,
-      error: <ErrorOutlineIcon />,
+      success: <StyledCheckCircleOutlineIcon />,
+      error: <StyledErrorOutlineIcon />,
+      warning: null,
+      info: null,
     }}
     {...props}
   >
@@ -38,23 +39,28 @@ export const useFlashMessage = () => {
     ) => ReturnType<typeof enqueueSnackbar>
   >(
     (message, options) => {
-      const { closable, ...rest } = {
+      const {
+        closable,
+        variant = undefined,
+        ...rest
+      } = {
         closable: true,
-        variant: undefined,
         ...options,
       };
       return enqueueSnackbar(message, {
+        variant,
         ...rest,
         ...(closable
           ? {
               action: function Action(key) {
                 return (
-                  <IconButton
+                  <StyledIconButton
+                    $variant={variant}
                     data-testid="FlashMessageCloseIconButton"
                     onClick={() => closeFlashMessage(key)}
                   >
                     <CloseIcon />
-                  </IconButton>
+                  </StyledIconButton>
                 );
               },
             }
@@ -66,6 +72,31 @@ export const useFlashMessage = () => {
 
   return { openFlashMessage, closeFlashMessage };
 };
+
+const StyledCheckCircleOutlineIcon = styled(CheckCircleOutlineIcon)`
+  margin-right: 8px;
+`;
+
+const StyledErrorOutlineIcon = styled(ErrorOutlineIcon)`
+  margin-right: 8px;
+`;
+
+const StyledIconButton = styled(IconButton)<{ $variant?: VariantType }>`
+  height: 26px;
+  width: 26px;
+  color: white;
+  ${({ $variant }) => {
+    if ($variant === "success" || $variant === "error") {
+      const color = $variant === "success" ? "green" : "red";
+      return css`
+        &:hover {
+          background-color: ${color};
+        }
+      `;
+    }
+    return "";
+  }}
+`;
 
 const StyledSnackbarProvider = styled(SnackbarProvider)`
   & .MuiSnackbarContent-action {
