@@ -19,12 +19,6 @@ export const FlashMessageProvider: FC<
       warning: null,
       info: null,
     }}
-    // classes={{
-    //   variantSuccess: { backgroundColor: "#3AB795" },
-    //   variantError: { backgroundColor: "#FF595E" },
-    //   // variantWarning: classes.warning,
-    //   // variantInfo: classes.info,
-    // }}
     // content={(key, message) => (
     //   <SnackbarContent
     //     key={key}
@@ -109,16 +103,66 @@ const StyledIconButton = styled(IconButton)<{ $variant?: VariantType }>`
   width: 26px;
   color: white;
   ${({ $variant }) => {
-    if ($variant === "success" || $variant === "error") {
-      const color = $variant === "success" ? "green" : "red";
-      return css`
-        &:hover {
-          background-color: ${color};
-        }
-      `;
+    switch ($variant) {
+      case "success":
+        return css`
+          &:hover {
+            background-color: #59cbac;
+          }
+        `;
+      case "error":
+        return css`
+          &:hover {
+            background-color: #ff8c8f;
+          }
+        `;
+      case "info":
+        return css`
+          &:hover {
+            background-color: #2d8ef7;
+          }
+        `;
+      case "warning":
+        return css`
+          &:hover {
+            background-color: #ffd86d;
+          }
+        `;
+      default:
+        return;
     }
-    return "";
   }}
 `;
 
-const StyledSnackbarProvider = styled(SnackbarProvider)``;
+const StyledSnackbarProvider = styled(SnackbarProvider)`
+  &.SnackbarItem-contentRoot {
+    min-width: 0px;
+    align-content: center;
+    flex-wrap: nowrap;
+  }
+  &.SnackbarItem-lessPadding {
+    padding-left: 16px;
+  }
+  &.SnackbarContainer-root > .MuiCollapse-root > .MuiCollapse-wrapper {
+    padding-top: 0px;
+    padding-bottom: 0px;
+  }
+  .MuiCollapse-container {
+    & > MuiCollapse-wrapper {
+      padding-top: 0px;
+      padding-bottom: 0px;
+    }
+  }
+  &.SnackbarItem-variantSuccess {
+    background-color: #3ab795;
+  }
+  &.SnackbarItem-variantError {
+    background-color: #ff595e;
+  }
+  &.SnackbarItem-variantInfo {
+    background-color: #0974e8;
+  }
+  &.SnackbarItem-variantWarning {
+    background-color: #ffca3a;
+  }
+`;
