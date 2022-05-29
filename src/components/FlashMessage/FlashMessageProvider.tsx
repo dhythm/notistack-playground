@@ -135,6 +135,8 @@ const StyledIconButton = styled(IconButton)<{ $variant?: VariantType }>`
 `;
 
 const StyledSnackbarProvider = styled(SnackbarProvider)`
+  margin-top: -2px;
+  margin-bottom: -2px;
   &.SnackbarItem-contentRoot {
     min-width: 0px;
     align-content: center;
@@ -142,16 +144,6 @@ const StyledSnackbarProvider = styled(SnackbarProvider)`
   }
   &.SnackbarItem-lessPadding {
     padding-left: 16px;
-  }
-  &.SnackbarContainer-root > .MuiCollapse-root > .MuiCollapse-wrapper {
-    padding-top: 0px;
-    padding-bottom: 0px;
-  }
-  .MuiCollapse-container {
-    & > MuiCollapse-wrapper {
-      padding-top: 0px;
-      padding-bottom: 0px;
-    }
   }
   &.SnackbarItem-variantSuccess {
     background-color: #3ab795;
